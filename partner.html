@@ -58,6 +58,18 @@
 <form id="partner-form">
 <div class="field"><label for="fullName">Full name</label><input id="fullName" name="fullName" autocomplete="name" required placeholder="Enter your full name"></div>
 <div class="field"><label for="phone">Mobile number</label><input id="phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel" pattern="[6-9][0-9]{9}" maxlength="10" required placeholder="10-digit number"></div>
+<div class="field">
+  <label for="otp-code">Verify mobile number with OTP</label>
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <button class="btn secondary" type="button" id="send-otp" style="font:inherit;cursor:pointer">Send OTP</button>
+  </div>
+  <div id="recaptcha-container" style="margin-top:10px"></div>
+  <div id="otp-entry" style="display:none;margin-top:10px">
+    <input id="otp-code" type="text" inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="[0-9]{6}" placeholder="Enter 6-digit OTP">
+    <button class="btn secondary" type="button" id="verify-otp" style="font:inherit;cursor:pointer;margin-top:8px">Verify OTP</button>
+  </div>
+  <p id="otp-status" class="muted" role="status" aria-live="polite" style="font-size:.85rem;margin:6px 0 0">Verify your number before continuing to payment.</p>
+</div>
 <div class="field"><label for="state">State / UT</label><select id="state" name="state" required><option value="">Select your state</option><option>Andhra Pradesh</option><option>Arunachal Pradesh</option><option>Assam</option><option>Bihar</option><option>Chhattisgarh</option><option>Delhi</option><option>Goa</option><option>Gujarat</option><option>Haryana</option><option>Himachal Pradesh</option><option>Jharkhand</option><option>Karnataka</option><option>Kerala</option><option>Madhya Pradesh</option><option>Maharashtra</option><option>Manipur</option><option>Meghalaya</option><option>Mizoram</option><option>Nagaland</option><option>Odisha</option><option>Punjab</option><option>Rajasthan</option><option>Sikkim</option><option>Tamil Nadu</option><option>Telangana</option><option>Tripura</option><option>Uttar Pradesh</option><option>Uttarakhand</option><option>West Bengal</option><option>Other / UT</option></select></div>
 <label class="consent-row"><input type="checkbox" id="agree" required><span class="consent-copy">I have read and accept the <a href="terms.html">Terms</a>, <a href="privacy.html">Privacy Policy</a> and <a href="refund-policy.html">Refund Policy</a>.</span></label>
 <button class="btn" type="submit" style="width:100%;font:inherit;cursor:pointer">Continue to ₹25 secure payment</button>
@@ -67,7 +79,7 @@
 </div></section>
 <section class="section white" id="programme"><div class="wrap"><span class="eyebrow">How it works</span><h2>A partner account for eligible activity.</h2><p class="sub">Partners may share approved information about eligible products or services, refer interested customers and direct workers to the free worker-registration route when available. Commission eligibility, rates and payout conditions must be described in the applicable programme terms.</p><div class="cards"><article class="card"><div class="icon">↗</div><h3>Product & service referrals</h3><p>Refer interested customers to eligible products or services. Only qualifying referrals may be eligible for commission.</p></article><article class="card"><div class="icon">◎</div><h3>Worker connections</h3><p>Help interested workers find the worker-registration route when it is available. Workers do not pay the partner fee.</p></article><article class="card"><div class="icon">✓</div><h3>No recruitment rewards</h3><p>Partners do not earn simply for recruiting other paid partners. No fixed income is promised.</p></article></div></div></section>
 <section class="section" id="registration"><div class="wrap"><span class="eyebrow">Before you register</span><h2>Understand the partner programme.</h2><div class="cards"><article class="card"><div class="icon">₹</div><h3>₹25 one-time fee</h3><p>The fee is for partner registration access, subject to the published terms. It is not payment for a job or guaranteed leads.</p></article><article class="card"><div class="icon">↗</div><h3>Eligible referrals</h3><p>Partners may refer interested users to eligible products or services. Commission applies only to qualifying activities under programme rules.</p></article><article class="card"><div class="icon">◎</div><h3>Worker connections</h3><p>Worker registration is free. Partners do not earn merely for recruiting other paid partners.</p></article></div><div class="notice" style="margin-top:20px">For help, email <a href="mailto:ronitshraddha@gmail.com">ronitshraddha@gmail.com</a>. Do not pay an individual outside Finshra's official checkout.</div></div></section>
-<section class="section white"><div class="wrap"><span class="eyebrow">Frequently asked</span><h2>Know before you join.</h2><div class="faq"><details><summary>Does registration guarantee work or income?</summary><p>No. Opportunities depend on availability and eligibility. Registration does not guarantee work, customers, tasks, commissions or income.</p></details><details><summary>Can partners earn by recruiting paid partners?</summary><p>No. Commission is tied to qualifying product/service referrals or other specifically described activity, not merely recruitment of paid partners.</p></details><details><summary>Do workers need to pay to register?</summary><p>No. Worker registration is intended to be free under this model. The ₹25 fee is only for partner registration.</p></details><details><summary>When can I pay the fee?</summary><p>Payment will be available on this page after secure checkout is connected and tested. Do not pay outside the verified checkout.</p></details></div></div></section></main><footer class="footer"><div class="wrap"><div class="footrow"><strong>finshra.</strong><span>Technology services · Partner operations</span><span>© 2026 Finshra</span></div><div class="footrow" style="margin:14px 0"><a href="terms.html">Terms & Conditions</a><a href="privacy.html">Privacy Policy</a><a href="refund-policy.html">Refund Policy</a><a href="contact.html">Contact Us</a></div><div style="margin-top:22px;padding-top:18px;border-top:1px solid var(--line)"><h3 style="color:var(--ink);margin:0 0 10px;font-size:1rem">Business Information</h3><p style="margin:5px 0">Brand Name: <strong style="color:var(--ink)">Finshra</strong></p><p style="margin:5px 0">Legal Name: <strong style="color:var(--ink)">Ronit Shukla</strong></p><p style="margin:5px 0">GST-registered Trade Name: <strong style="color:var(--ink)">Console Connect</strong></p><p style="margin:5px 0">GSTIN: <strong style="color:var(--ink)">07RNSPS0776R1ZB</strong></p><p style="margin:5px 0">Business Constitution: <strong style="color:var(--ink)">Proprietorship</strong></p><p style="margin:5px 0">Support: <a href="mailto:ronitshraddha@gmail.com">ronitshraddha@gmail.com</a></p></div></div></footer><script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
+<section class="section white"><div class="wrap"><span class="eyebrow">Frequently asked</span><h2>Know before you join.</h2><div class="faq"><details><summary>Does registration guarantee work or income?</summary><p>No. Opportunities depend on availability and eligibility. Registration does not guarantee work, customers, tasks, commissions or income.</p></details><details><summary>Can partners earn by recruiting paid partners?</summary><p>No. Commission is tied to qualifying product/service referrals or other specifically described activity, not merely recruitment of paid partners.</p></details><details><summary>Do workers need to pay to register?</summary><p>No. Worker registration is intended to be free under this model. The ₹25 fee is only for partner registration.</p></details><details><summary>When can I pay the fee?</summary><p>Payment will be available on this page after secure checkout is connected and tested. Do not pay outside the verified checkout.</p></details></div></div></section></main><footer class="footer"><div class="wrap"><div class="footrow"><strong>finshra.</strong><span>Technology services · Partner operations</span><span>© 2026 Finshra</span></div><div class="footrow" style="margin:14px 0"><a href="terms.html">Terms & Conditions</a><a href="privacy.html">Privacy Policy</a><a href="refund-policy.html">Refund Policy</a><a href="contact.html">Contact Us</a></div><div style="margin-top:22px;padding-top:18px;border-top:1px solid var(--line)"><h3 style="color:var(--ink);margin:0 0 10px;font-size:1rem">Business Information</h3><p style="margin:5px 0">Brand Name: <strong style="color:var(--ink)">Finshra</strong></p><p style="margin:5px 0">Legal Name: <strong style="color:var(--ink)">Ronit Shukla</strong></p><p style="margin:5px 0">GST-registered Trade Name: <strong style="color:var(--ink)">Console Connect</strong></p><p style="margin:5px 0">GSTIN: <strong style="color:var(--ink)">07RNSPS0776R1ZB</strong></p><p style="margin:5px 0">Business Constitution: <strong style="color:var(--ink)">Proprietorship</strong></p><p style="margin:5px 0">Support: <a href="mailto:ronitshraddha@gmail.com">ronitshraddha@gmail.com</a></p></div></div></footer><script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script><script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script><script src="https://sdk.cashfree.com/js/v3/cashfree.js"></script>
 <script>
 (() => {
   // Replace this with your deployed Cloudflare Worker base URL, without a trailing slash.
@@ -77,6 +89,97 @@
   const submitButton = form.querySelector('button[type="submit"]');
   const params = new URLSearchParams(window.location.search);
   const returnedOrderId = params.get("order_id");
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyA8e_X_GZgaAeuoo-XNOETnMwvUejpQ25s",
+    authDomain: "finshra-da9ae.firebaseapp.com",
+    projectId: "finshra-da9ae",
+    storageBucket: "finshra-da9ae.firebasestorage.app",
+    messagingSenderId: "877510514571",
+    appId: "1:877510514571:web:60a7af28c655fe9eaac18e",
+    measurementId: "G-6Y49B3YXFV"
+  };
+  if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  let confirmationResult = null;
+  let recaptchaVerifier = null;
+  let verifiedFirebaseIdToken = "";
+  let verifiedPhone = "";
+  const phoneInput = document.getElementById("phone");
+  const otpStatus = document.getElementById("otp-status");
+  const sendOtpButton = document.getElementById("send-otp");
+  const verifyOtpButton = document.getElementById("verify-otp");
+  const otpEntry = document.getElementById("otp-entry");
+
+  function showOtpStatus(message, success = false) {
+    otpStatus.textContent = message;
+    otpStatus.style.color = success ? "#17663a" : "#8a3b16";
+  }
+
+  function currentE164Phone() {
+    const digits = phoneInput.value.trim();
+    if (!/^[6-9]\d{9}$/.test(digits)) throw new Error("Enter a valid 10-digit Indian mobile number first.");
+    return "+91" + digits;
+  }
+
+  phoneInput.addEventListener("input", () => {
+    if (verifiedPhone && verifiedPhone !== "+91" + phoneInput.value.trim()) {
+      verifiedFirebaseIdToken = "";
+      verifiedPhone = "";
+      confirmationResult = null;
+      otpEntry.style.display = "none";
+      showOtpStatus("Mobile number changed. Please verify the new number.");
+    }
+  });
+
+  sendOtpButton.addEventListener("click", async () => {
+    try {
+      const phoneE164 = currentE164Phone();
+      sendOtpButton.disabled = true;
+      showOtpStatus("Preparing secure OTP verification…");
+      if (!recaptchaVerifier) {
+        recaptchaVerifier = new firebase.auth.RecaptchaVerifier("recaptcha-container", {
+          size: "invisible"
+        }, auth);
+      }
+      confirmationResult = await auth.signInWithPhoneNumber(phoneE164, recaptchaVerifier);
+      otpEntry.style.display = "block";
+      showOtpStatus("OTP sent. Check your SMS and enter the 6-digit code.", true);
+    } catch (err) {
+      showOtpStatus(err.message || "Could not send OTP. Please try again.");
+      if (recaptchaVerifier) {
+        try { recaptchaVerifier.clear(); } catch {}
+        recaptchaVerifier = null;
+        document.getElementById("recaptcha-container").innerHTML = "";
+      }
+    } finally {
+      sendOtpButton.disabled = false;
+    }
+  });
+
+  verifyOtpButton.addEventListener("click", async () => {
+    try {
+      if (!confirmationResult) throw new Error("Please tap Send OTP first.");
+      const code = document.getElementById("otp-code").value.trim();
+      if (!/^\d{6}$/.test(code)) throw new Error("Enter the 6-digit OTP.");
+      verifyOtpButton.disabled = true;
+      const credential = await confirmationResult.confirm(code);
+      verifiedFirebaseIdToken = await credential.user.getIdToken(true);
+      verifiedPhone = credential.user.phoneNumber || "";
+      if (verifiedPhone !== currentE164Phone()) {
+        verifiedFirebaseIdToken = "";
+        verifiedPhone = "";
+        throw new Error("The verified number does not match the form number. Please try again.");
+      }
+      showOtpStatus("Mobile number verified successfully.", true);
+      sendOtpButton.disabled = true;
+      phoneInput.readOnly = true;
+    } catch (err) {
+      showOtpStatus(err.message || "OTP verification failed. Check the code and try again.");
+    } finally {
+      verifyOtpButton.disabled = false;
+    }
+  });
 
   function showStatus(message, success = false) {
     status.textContent = message;
@@ -110,6 +213,11 @@ showStatus(
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
     if (!form.reportValidity()) return;
+    if (!verifiedFirebaseIdToken || verifiedPhone !== "+91" + phoneInput.value.trim()) {
+      showStatus("Please verify your mobile number with OTP before payment.");
+      showOtpStatus("OTP verification is required before payment.");
+      return;
+    }
     if (API_BASE.includes("YOUR-WORKER-NAME")) {
       showStatus("Website setup is incomplete: the Cloudflare Worker URL must be added before payments can start.");
       return;
@@ -126,7 +234,8 @@ showStatus(
           phone: document.getElementById("phone").value.trim(),
           email: "",
           state: document.getElementById("state").value,
-          acceptedTerms: document.getElementById("agree").checked
+          acceptedTerms: document.getElementById("agree").checked,
+          firebaseIdToken: verifiedFirebaseIdToken
         })
       });
       const result = await response.json();
