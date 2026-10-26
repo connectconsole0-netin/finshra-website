@@ -89,8 +89,8 @@
       const response = await fetch(`${API_BASE}/api/verify-order?order_id=${encodeURIComponent(orderId)}`);
       const result = await response.json();
       if (!response.ok) throw new Error(result.error || "Verification could not be completed.");
-      if (result.paid && result.partnerStatus === "ACTIVE") {
-        showStatus(`Payment verified. Your partner account is active. Partner ID: ${result.partnerId}. Please save this ID.`, true);
+      if (result.verified && result.status === "PAID" && result.partnerId) {
+        showStatus(`Payment successful! Your Finshra Partner ID is: ${result.partnerId}. Please save this ID.`, true);
         form.querySelectorAll("input,select,button").forEach(el => el.disabled = true);
       } else {
         showStatus("Payment is not confirmed yet. Please wait a moment and refresh this page. Do not pay again while the order is pending.");
