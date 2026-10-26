@@ -90,7 +90,12 @@
       const result = await response.json();
       if (!response.ok) throw new Error(result.error || "Verification could not be completed.");
       if (result.verified && result.status === "PAID" && result.partnerId) {
-        showStatus(`Payment successful! Your Finshra Partner ID is: ${result.partnerId}. Please save this ID.`, true);
+document.getElementById("partner-form").style.display = "none";
+
+showStatus(
+  `Registration successful! Your Finshra Partner ID is: ${result.partnerId}. Please save this ID.`,
+  true
+);
         form.querySelectorAll("input,select,button").forEach(el => el.disabled = true);
       } else {
         showStatus("Payment is not confirmed yet. Please wait a moment and refresh this page. Do not pay again while the order is pending.");
