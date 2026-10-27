@@ -215,11 +215,11 @@ showStatus(
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
     if (!form.reportValidity()) return;
-    if (!verifiedFirebaseIdToken || verifiedPhone !== "+91" + phoneInput.value.trim()) {
-      showStatus("Please verify your mobile number with OTP before payment.");
-      showOtpStatus("OTP verification is required before payment.");
-      return;
-    }
+   if (!verifiedFirebaseIdToken || verifiedPhone !== "+91" + phoneInput.value.trim()) {
+  showStatus("Please verify your mobile number with OTP before payment.");
+  showOtpStatus("OTP verification is required before payment.");
+  return;
+}
     if (API_BASE.includes("YOUR-WORKER-NAME")) {
       showStatus("Website setup is incomplete: the Cloudflare Worker URL must be added before payments can start.");
       return;
