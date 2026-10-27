@@ -215,9 +215,21 @@ showStatus(
   form.addEventListener("submit", async (event) => {
     event.preventDefault();
     if (!form.reportValidity()) return;
-   if (!verifiedFirebaseIdToken || verifiedPhone !== "+91" + phoneInput.value.trim()) {
-  showStatus("Please verify your mobile number with OTP before payment.");
-  showOtpStatus("OTP verification is required before payment.");
+   const expectedPhone = "+91" + phoneInput.value.trim();
+
+console.log("OTP payment check:", {
+  hasToken: Boolean(verifiedFirebaseIdToken),
+  verifiedPhone,
+  expectedPhone
+});
+
+if (!verifiedFirebaseIdToken) {
+  showStatus("Verification token is missing. Please verify again.");
+  return;
+}
+
+if (verifiedPhone !== expectedPhone) {
+  showStatus("Verified number does not match the form number.");
   return;
 }
     if (API_BASE.includes("YOUR-WORKER-NAME")) {
