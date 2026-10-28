@@ -44,7 +44,7 @@
 #partner-form .consent-row input[type=checkbox]{grid-column:1;grid-row:1;margin:3px 0 0!important;width:18px!important;height:18px!important;min-height:18px!important;flex:none}
 #partner-form .consent-copy{grid-column:2;min-width:0;display:block;overflow-wrap:normal;word-break:normal}
 #partner-form .consent-copy a{white-space:normal;display:inline}
-</style></head><body><header class="wrap nav"><a class="brand" href="index.html">finshra<span>.</span></a><nav class="navlinks" aria-label="Main navigation"><a href="index.html#services">Services</a><a href="index.html#network">Partner network</a><a href="tutorial.html">How it works</a><a href="terms.html">Terms</a><a class="btn"  href="/partner/">Partner programme</a></nav></header><main><section class="hero"><div class="wrap hero-grid">
+</style></head><body><header class="wrap nav"><a class="brand" href="index.html">finshra<span>.</span></a><nav class="navlinks" aria-label="Main navigation"><a href="index.html#services">Services</a><a href="index.html#network">Partner network</a><a href="tutorial.html">How it works</a><a href="terms.html">Terms</a><a class="btn" href="partner.html">Partner programme</a></nav></header><main><section class="hero"><div class="wrap hero-grid">
 <div><span class="eyebrow">Finshra · Partner programme</span>
 <h1>Join the network.<br><em>Start with ₹25.</em></h1>
 <p class="lead">Create a partner profile to take part in eligible product/service referrals and worker connections. Worker registration is free.</p>
@@ -161,4 +161,107 @@ const firebaseConfig = {
 
   verifyOtpButton.addEventListener("click", async () => {
     try {
-      if (!confirmationResult) throw new Error("
+      if (!confirmationResult) throw new Error("Please tap Send OTP first.");
+      const code = document.getElementById("otp-code").value.trim();
+      if (!/^\d{6}$/.test(code)) throw new Error("Enter the 6-digit OTP.");
+      verifyOtpButton.disabled = true;
+      const credential = await confirmationResult.confirm(code);
+      verifiedFirebaseIdToken = await credential.user.getIdToken(true);
+      verifiedPhone = credential.user.phoneNumber || "";
+      if (verifiedPhone !== currentE164Phone()) {
+        verifiedFirebaseIdToken = "";
+        verifiedPhone = "";
+        throw new Error("The verified number does not match the form number. Please try again.");
+      }
+      showOtpStatus("Mobile number verified successfully.", true);
+      sendOtpButton.disabled = true;
+      phoneInput.readOnly = true;
+    } catch (err) {
+      showOtpStatus(err.message || "OTP verification failed. Check the code and try again.");
+    } finally {
+      verifyOtpButton.disabled = false;
+    }
+  });
+
+  function showStatus(message, success = false) {
+    status.textContent = message;
+    status.style.color = success ? "#17663a" : "#8a3b16";
+  }
+
+  async function verifyReturn(orderId) {
+    showStatus("Checking payment securely with Cashfree…");
+    try {
+      const response = await fetch(`${API_BASE}/api/verify-order?order_id=${encodeURIComponent(orderId)}`);
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || "Verification could not be completed.");
+      if (result.verified && result.status === "PAID" && result.partnerId) {
+document.getElementById("partner-form").style.display = "none";
+
+showStatus(
+  `Registration successful! Your Finshra Partner ID is: ${result.partnerId}. Please save this ID.`,
+  true
+);
+        form.querySelectorAll("input,select,button").forEach(el => el.disabled = true);
+      } else {
+        showStatus("Payment is not confirmed yet. Please wait a moment and refresh this page. Do not pay again while the order is pending.");
+      }
+    } catch (err) {
+      showStatus(err.message || "Could not verify payment. Please refresh or contact support.");
+    }
+  }
+
+  if (returnedOrderId) verifyReturn(returnedOrderId);
+
+  form.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    if (!form.reportValidity()) return;
+   const expectedPhone = "+91" + phoneInput.value.trim();
+
+console.log("OTP payment check:", {
+  hasToken: Boolean(verifiedFirebaseIdToken),
+  verifiedPhone,
+  expectedPhone
+});
+
+if (!verifiedFirebaseIdToken) {
+  showStatus("Verification token is missing. Please verify again.");
+  return;
+}
+
+if (verifiedPhone !== expectedPhone) {
+  showStatus("Verified number does not match the form number.");
+  return;
+}
+    if (API_BASE.includes("YOUR-WORKER-NAME")) {
+      showStatus("Website setup is incomplete: the Cloudflare Worker URL must be added before payments can start.");
+      return;
+    }
+    submitButton.disabled = true;
+    submitButton.textContent = "Creating secure payment…";
+    showStatus("Creating your ₹25 order securely…");
+    try {
+      const response = await fetch(`${API_BASE}/api/create-order`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: document.getElementById("fullName").value.trim(),
+          phone: document.getElementById("phone").value.trim(),
+          email: "",
+          state: document.getElementById("state").value,
+          acceptedTerms: document.getElementById("agree").checked,
+          firebaseIdToken: verifiedFirebaseIdToken
+        })
+      });
+      const result = await response.json();
+      if (!response.ok) throw new Error(result.error || "Could not start payment.");
+      if (!result.paymentSessionId) throw new Error("Cashfree did not return a payment session.");
+      const cashfree = Cashfree({ mode: result.mode === "sandbox" ? "sandbox" : "production" });
+      await cashfree.checkout({ paymentSessionId: result.paymentSessionId, redirectTarget: "_self" });
+    } catch (err) {
+      showStatus(err.message || "Could not start checkout. Please try again.");
+      submitButton.disabled = false;
+      submitButton.textContent = "Continue to ₹25 secure payment";
+    }
+  });
+})();
+</script></body></html>
