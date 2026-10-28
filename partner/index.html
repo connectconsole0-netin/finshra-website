@@ -17,7 +17,7 @@
 #partner-form input[type=checkbox]{flex:0 0 18px;width:18px;height:18px;min-height:18px;margin:3px 0 0;accent-color:#638b2d}
 
 #partner-form label:has(input[type=checkbox]) a{display:inline;text-decoration:underline;white-space:normal}
-#partner-form button{min-height:48px;white-space:normal;line-height:1.25;padding:13px 18px;background:linear-gradient(135deg,#c8f17a,#91c83e);color:#14251c;border:1px solid #91c83e;border-radius:999px;font-weight:800;box-shadow:0 5px 14px rgba(99,139,45,.18)}
+#partner-form button{min-height:48px;white-space:normal;line-height:1.25;padding:13px 18px;background:linear-gradient(135deg,#c8f17a,#91c83e);color:#ffffff;border:1px solid #91c83e;border-radius:999px;font-weight:800;box-shadow:0 5px 14px rgba(99,139,45,.18)}
 #form-status{line-height:1.45;overflow-wrap:anywhere}
 @media(max-width:760px){
  .hero{padding:28px 0 40px}
@@ -147,6 +147,7 @@ const firebaseConfig = {
       confirmationResult = await auth.signInWithPhoneNumber(phoneE164, recaptchaVerifier);
       otpEntry.style.display = "block";
       showOtpStatus("OTP sent. Check your SMS and enter the 6-digit code.", true);
+     sendOtpButton.style.display = "none";
     } catch (err) {
       showOtpStatus(err.message || "Could not send OTP. Please try again.");
       if (recaptchaVerifier) {
@@ -155,7 +156,7 @@ const firebaseConfig = {
         document.getElementById("recaptcha-container").innerHTML = "";
       }
     } finally {
-      sendOtpButton.disabled = false;
+      if (!confirmationResult) sendOtpButton.disabled = false;
     }
   });
 
@@ -174,12 +175,13 @@ const firebaseConfig = {
         throw new Error("The verified number does not match the form number. Please try again.");
       }
       showOtpStatus("Mobile number verified successfully.", true);
+     verifyOtpButton.style.display = "none";
       sendOtpButton.disabled = true;
       phoneInput.readOnly = true;
     } catch (err) {
       showOtpStatus(err.message || "OTP verification failed. Check the code and try again.");
     } finally {
-      verifyOtpButton.disabled = false;
+      if (!verifiedFirebaseIdToken) verifyOtpButton.disabled = false;
     }
   });
 
