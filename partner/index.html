@@ -43,7 +43,10 @@
 #partner-form .consent-row{display:grid!important;grid-template-columns:18px minmax(0,1fr);gap:10px;align-items:start;margin:16px 0!important;line-height:1.5;font-size:.9rem}
 #partner-form .consent-row input[type=checkbox]{grid-column:1;grid-row:1;margin:3px 0 0!important;width:18px!important;height:18px!important;min-height:18px!important;flex:none}
 #partner-form .consent-copy{grid-column:2;min-width:0;display:block;overflow-wrap:normal;word-break:normal}
-#partner-form .consent-copy a{white-space:normal;display:inline}
+#partner-form .consent-copy a{white-space:normal;display:inline}  
+ .phone-input-wrap{position:relative;display:flex;align-items:center}
+.phone-input-wrap input{padding-right:52px!important}
+#phone-verified-tick{position:absolute;right:12px;width:28px;height:28px;border-radius:50%;background:#16a34a;color:#fff;align-items:center;justify-content:center;font-weight:900;font-size:18px}
 </style></head><body><header class="wrap nav"><a class="brand" href="index.html">finshra<span>.</span></a><nav class="navlinks" aria-label="Main navigation"><a href="/tutorial/">How it works</a><a href="/terms/">Terms</a><a class="btn" href="/partner/">Partner programme</a></nav></header><main><section class="hero"><div class="wrap hero-grid">
 <div><span class="eyebrow">Finshra · Partner programme</span>
 <h1>Join the network.<br><em>Start with ₹25.</em></h1>
@@ -57,7 +60,10 @@
 <p class="muted" style="margin-top:0">Fill in your details to begin. Continue to Cashfree’s secure checkout to pay the ₹25 registration fee.</p>
 <form id="partner-form">
 <div class="field"><label for="fullName">Full name</label><input id="fullName" name="fullName" autocomplete="name" required placeholder="Enter your full name"></div>
-<div class="field"><label for="phone">Mobile number</label><input id="phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel" pattern="[6-9][0-9]{9}" maxlength="10" required placeholder="10-digit number"></div>
+<div class="field"><label for="phone">Mobile number</label><div class="phone-input-wrap">
+<input id="phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel" pattern="[6-9][0-9]{9}" maxlength="10" required placeholder="10-digit number">
+<span id="phone-verified-tick" style="display:none" aria-label="Mobile verified">✓</span>
+</div></div>
 <div class="field">
   <label for="otp-code">Verify mobile number with OTP</label>
   <div style="display:flex;gap:8px;flex-wrap:wrap">
@@ -175,6 +181,10 @@ const firebaseConfig = {
         throw new Error("The verified number does not match the form number. Please try again.");
       }
       showOtpStatus("Mobile number verified successfully.", true);
+     document.getElementById("phone-verified-tick").style.display = "flex";
+document.querySelector('label[for="otp-code"]').style.display = "none";
+     document.getElementById("otp-entry").style.display = "none";
+document.getElementById("otp-status").style.display = "none";
      verifyOtpButton.style.display = "none";
       sendOtpButton.disabled = true;
       phoneInput.readOnly = true;
