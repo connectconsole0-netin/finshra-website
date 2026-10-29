@@ -47,6 +47,14 @@
  .phone-input-wrap{position:relative;display:flex;align-items:center}
 .phone-input-wrap input{padding-right:52px!important}
 #phone-verified-tick{position:absolute;right:12px;width:28px;height:28px;border-radius:50%;background:#16a34a;color:#fff;align-items:center;justify-content:center;font-weight:900;font-size:18px}
+
+/* OTP loading indicator */
+.button-spinner{display:inline-block;width:17px;height:17px;border:2px solid currentColor;border-right-color:transparent;border-radius:50%;animation:otp-spin .7s linear infinite;vertical-align:middle;flex:0 0 17px}
+button.otp-loading{display:inline-flex;align-items:center;justify-content:center;gap:9px;cursor:wait!important;opacity:.82}
+button:disabled{cursor:not-allowed;opacity:.72}
+@keyframes otp-spin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){.button-spinner{animation-duration:1.8s}}
+
 </style></head><body><header class="wrap nav"><a class="brand" href="index.html">finshra<span>.</span></a><nav class="navlinks" aria-label="Main navigation"><a href="/tutorial/">How it works</a><a href="/terms/">Terms</a><a class="btn" href="/partner/">Partner programme</a></nav></header><main><section class="hero"><div class="wrap hero-grid">
 <div><span class="eyebrow">Finshra · Partner programme</span>
 <h1>Join the network.<br><em>Start with ₹25.</em></h1>
@@ -125,6 +133,24 @@ const firebaseConfig = {
     otpStatus.style.color = success ? "#17663a" : "#8a3b16";
   }
 
+
+  function setOtpLoading(button, loading, message = "") {
+    if (loading) {
+      if (!button.dataset.originalText) button.dataset.originalText = button.textContent.trim();
+      button.disabled = true;
+      button.classList.add("otp-loading");
+      button.setAttribute("aria-busy", "true");
+      button.innerHTML = '<span class="button-spinner" aria-hidden="true"></span><span>' +
+        message.replace(/[&<>"]/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[ch])) +
+        '</span>';
+    } else {
+      button.classList.remove("otp-loading");
+      button.removeAttribute("aria-busy");
+      button.textContent = button.dataset.originalText || button.textContent;
+      button.disabled = false;
+    }
+  }
+
   function currentE164Phone() {
     const digits = phoneInput.value.trim();
     if (!/^[6-9]\d{9}$/.test(digits)) throw new Error("Enter a valid 10-digit Indian mobile number first.");
@@ -144,8 +170,8 @@ const firebaseConfig = {
   sendOtpButton.addEventListener("click", async () => {
     try {
       const phoneE164 = currentE164Phone();
-      sendOtpButton.disabled = true;
-      showOtpStatus("Preparing secure OTP verification…");
+      setOtpLoading(sendOtpButton, true, "Sending OTP…");
+      showOtpStatus("Sending OTP securely. Please wait…");
       if (!recaptchaVerifier) {
         recaptchaVerifier = new firebase.auth.RecaptchaVerifier("recaptcha-container", {
   size: "invisible"
@@ -163,7 +189,7 @@ const firebaseConfig = {
         document.getElementById("recaptcha-container").innerHTML = "";
       }
     } finally {
-      if (!confirmationResult) sendOtpButton.disabled = false;
+      if (!confirmationResult) setOtpLoading(sendOtpButton, false);
     }
   });
 
@@ -172,7 +198,8 @@ const firebaseConfig = {
       if (!confirmationResult) throw new Error("Please tap Send OTP first.");
       const code = document.getElementById("otp-code").value.trim();
       if (!/^\d{6}$/.test(code)) throw new Error("Enter the 6-digit OTP.");
-      verifyOtpButton.disabled = true;
+      setOtpLoading(verifyOtpButton, true, "Verifying OTP…");
+      showOtpStatus("Verifying OTP securely. Please wait…", true);
       const credential = await confirmationResult.confirm(code);
       verifiedFirebaseIdToken = await credential.user.getIdToken(true);
       verifiedPhone = credential.user.phoneNumber || "";
@@ -192,7 +219,7 @@ document.getElementById("otp-status").style.display = "none";
     } catch (err) {
       showOtpStatus(err.message || "OTP verification failed. Check the code and try again.");
     } finally {
-      if (!verifiedFirebaseIdToken) verifyOtpButton.disabled = false;
+      if (!verifiedFirebaseIdToken) setOtpLoading(verifyOtpButton, false);
     }
   });
 
