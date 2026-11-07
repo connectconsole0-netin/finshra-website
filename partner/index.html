@@ -290,7 +290,8 @@ if (verifiedPhone !== expectedPhone) {
           email: document.getElementById("email").value.trim(),
           state: document.getElementById("state").value,
           acceptedTerms: document.getElementById("agree").checked,
-          firebaseIdToken: verifiedFirebaseIdToken
+          firebaseIdToken: verifiedFirebaseIdToken,
+          referralCode: params.get("ref") || ""
         })
       });
       const result = await response.json();
