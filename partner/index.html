@@ -30,20 +30,6 @@ button,a,input,select,summary{-webkit-tap-highlight-color:transparent}
 .navlinks a:hover{color:var(--forest)}
 .nav-cta,.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;text-decoration:none;border:1px solid transparent;border-radius:999px;padding:13px 20px;font-weight:800;cursor:pointer;transition:transform .18s ease,box-shadow .18s ease,background .18s ease}
 .nav-cta,.btn-primary{background:var(--forest);color:#fff;box-shadow:0 8px 20px rgba(23,59,43,.16)}
- .navlinks a.nav-cta {
-    background: #173b2b !important;
-    color: #ffffff !important;
-    border: 1px solid #173b2b;
-}
-
-.navlinks a.nav-cta span {
-    color: #ffffff !important;
-}
-
-.navlinks a.nav-cta:hover {
-    background: #24543b !important;
-    color: #ffffff !important;
-}
 .nav-cta:hover,.btn-primary:hover{transform:translateY(-1px);background:var(--forest-2)}
 .btn-light{background:#fff;color:var(--forest);border-color:var(--line)}
 .hero{padding:46px 0 68px;background:radial-gradient(ellipse at 12% 4%,rgba(215,242,155,.46),transparent 35%),radial-gradient(ellipse at 90% 60%,rgba(223,239,210,.7),transparent 38%),var(--paper)}
@@ -154,6 +140,30 @@ button.otp-loading{display:inline-flex;align-items:center;justify-content:center
  .form-top{flex-wrap:wrap}
 }
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* Responsive override: use the stacked phone/tablet layout on narrow viewports. */
+@media screen and (max-width: 1024px){
+  .wrap{width:calc(100% - 30px)}
+  .nav{min-height:64px}
+  .navlinks{display:none !important}
+  .hero{padding:17px 0 42px}
+  .hero-grid{display:flex !important;flex-direction:column !important;align-items:stretch;gap:23px}
+  .register-card{order:0 !important;width:100%;min-width:0;padding:22px 17px;border-radius:21px}
+  .hero-copy{order:1 !important;padding:0 2px}
+  h1{font-size:clamp(2.35rem,7vw,3.25rem);margin:14px 0 12px;line-height:1.02}
+  .hero-lead{font-size:.98rem}
+  .hero-points{gap:9px 13px;font-size:.84rem;margin-top:17px}
+  .trust-strip{margin-top:18px;font-size:.78rem}
+  .register-card h2{font-size:1.65rem}
+  .section{padding:49px 0}
+  .section h2{font-size:2.15rem}
+  .cards,.steps{grid-template-columns:minmax(0,1fr);gap:12px}
+  .card{padding:20px}
+  .fee-band{padding:22px 19px;align-items:flex-start;flex-direction:column;gap:10px}
+  .fee-amount{font-size:2.2rem}
+  .footer-top,.footer-links{flex-direction:column}
+}
+
 </style>
 </head>
 <body>
@@ -179,7 +189,7 @@ button.otp-loading{display:inline-flex;align-items:center;justify-content:center
     <span><i>✓</i> Online partner dashboard</span>
     <span><i>✓</i> Worker registration is free</span>
    </div>
-   <div class="trust-strip"><span class="trust-icon">✔️</span><span>Clear programme terms · Secure online checkout · Support available</span></div>
+   <div class="trust-strip"><span class="trust-icon">⌑</span><span>Clear programme terms · Secure online checkout · Support available</span></div>
   </div>
 
   <aside class="register-card" id="register-card">
